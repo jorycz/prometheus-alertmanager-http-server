@@ -30,7 +30,8 @@ groups:
 - name: Plugs
   rules:
   - alert: Plug Washing Machine
-    expr: tasmota_status_power{status_topic="plug_washing-machine"} == 0
+    ### avg_over_time help me to ignore short wifi/telemetry data outages
+    expr: avg_over_time(tasmota_status_power{status_topic="plug_washing-machine"}[50s]) == 0
     labels:
       severity: critical
     annotations:
