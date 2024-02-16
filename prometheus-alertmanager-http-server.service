@@ -1,0 +1,19 @@
+[Unit]
+Description=Simple HTTP server with BASH script for prometheus alertmanager
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+TimeoutStartSec=1
+Restart=on-failure
+RestartSec=5s
+WorkingDirectory=/opt/prometheus-alertmanager-http-server
+ExecStart=/opt/prometheus-alertmanager-http-server/prometheus-alertmanager-http-server
+SyslogIdentifier=prometheus-alertmanager-http-server
+
+[Install]
+WantedBy=multi-user.target
+
